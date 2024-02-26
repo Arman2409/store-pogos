@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
-export const getSeller = async (id: number) => {
+export const getSeller = async (id: string) => {
   return await prisma.seller.findUnique({
     where: {
       id,

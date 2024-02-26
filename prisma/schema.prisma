@@ -6,31 +6,50 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
 }
 
 model Client {
-  id    Int     @id @default(autoincrement())
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
   email String  @unique
   name  String?
   sales Sale[]
 }
 
 model Seller {
-  id    Int    @id @default(autoincrement())
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
   name  String
   sales Sale[]
 }
 
 model Sale {
-  id       Int    @id @default(autoincrement())
-  sellerId Int
-  clientId Int
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  sellerId String
+  clientId String
   seller   Seller @relation(fields: [sellerId], references: [id])
   client   Client @relation(fields: [clientId], references: [id])
 }
 
-//model SaleItem {}
+model SaleItem {
 
-//model Product {}
+}
+
+model Product {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  price    Float
+  category String
+  images   String[] @default([])
+}
+
+type OrderItem {
+  productId String
+  quantity  Int
+}
+
+model Order {
+  id       String      @id @default(auto()) @map("_id") @db.ObjectId
+  userId   String
+  products OrderItem[]
+}

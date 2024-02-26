@@ -7,15 +7,26 @@ type CreateSellerBody = {
   name: string;
 };
 
-sellerRoute.get("/:id", async (req, res) => {
-  const seller = await getSeller(Number(req.params.id));
-  res.json(seller);
+sellerRoute.get("/:id", async ({ params }, res) => {
+  const { id } = { ...params }
+  if (!id) return res.status(400).json({ message: "Id not provided" });
+  try {
+    const seller = await getSeller(id);
+    res.json(seller);
+  } catch (err) {
+    return res.status(400).json((err as Error).message);
+  }
 });
 
-sellerRoute.post("/", async (req, res) => {
-  const { name }: CreateSellerBody = req.body;
-  const seller = await createSeller(name);
-  res.json(seller);
+sellerRoute.post("/", async ({ body }, res) => {
+  const { name }: CreateSellerBody = { ...body };
+  if (!name) return res.status(400).json({ message: "Name not provided" });
+  try {
+    const seller = await createSeller(name);
+    res.json(seller);
+  } catch (err) {
+    return res.status(400).json((err as Error).message);
+  }
 });
 
 export default sellerRoute;
