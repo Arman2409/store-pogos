@@ -2,8 +2,8 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export const getClient = async (id: string) => {
-  return await prisma.client.findUnique({
+export const getDiscount = async (id: string) => {
+  return await prisma.discount.findUnique({
     where: {
       id,
     },
@@ -12,24 +12,24 @@ export const getClient = async (id: string) => {
   });
 };
 
-export const createClient = async (name: string, email: string) => {
-  return await prisma.client.create({
-    data: {
-      name,
-      email,
+export const deleteDiscount = async (id: string) => {
+  return await prisma.discount.delete({
+    where: {
+      id,
     },
   }).catch(({meta, message}) => {
     throw new Error(meta?.message || message)
   });
 };
 
-export const deleteClient = async (id:string) => {
-  return await prisma.client.delete({
+export const getDiscountsByProduct = async (id: string) => {
+  return await prisma.discount.findMany({
     where: {
-      id
+      productIds: {
+        has: id
+      }
     },
   }).catch(({meta, message}) => {
     throw new Error(meta?.message || message)
   });
-}
-
+};

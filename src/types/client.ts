@@ -1,18 +1,4 @@
-export interface Product {
-    name: string
-    price: string
-}
-
-export interface User {
+export interface Client {
     email: string
     name: string
-}
-
-export interface Order {
-    userId: string
-    date: Date
-    products: {
-         productId: string
-         quantity: number
-    }[]
 }

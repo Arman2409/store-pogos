@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+
 const prisma = new PrismaClient();
 
 export const getSeller = async (id: string) => {
@@ -6,6 +7,8 @@ export const getSeller = async (id: string) => {
     where: {
       id,
     },
+  }).catch(({meta, message}) => {
+    throw new Error(meta?.message || message);
   });
 };
 
@@ -14,5 +17,7 @@ export const createSeller = async (name: string) => {
     data: {
       name,
     },
+  }).catch(({meta, message}) => {
+    throw new Error(meta?.message || message)
   });
 };

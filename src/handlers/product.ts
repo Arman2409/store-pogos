@@ -1,0 +1,54 @@
+import type { Request, Response } from "express";
+import type { Product } from "@prisma/client";
+
+import handleError from "../helpers/handleError";
+import { getSeller } from "../db/seller";
+import {
+    createProduct,
+    deleteProduct,
+    getProduct
+} from "../db/product";
+
+export const createProductHandler = async ({ body }: Request, res: Response) => {
+    const { price = 0, name = "", category = "", sellerId = "", images = [] }: Product = { ...body };
+
+    if (!price || !name || !category || !sellerId) return handleError(res, { message: "Name, price or category not provided" } as Error);
+    try {
+        const seller = await getSeller(sellerId);
+        if (!seller) {
+            return handleError(res, { message: "Seller doesn't exist" } as Error);
+        }
+        const product = await createProduct({
+            sellerId,
+            name,
+            price,
+            category,
+            date: new Date(),
+        })
+        res.json(product);
+    } catch (err) {
+        return handleError(res, err as Error);
+    }
+}
+
+export const deleteProductHandler = async ({ params }: Request, res: Response) => {
+    const { id = "" } = { ...params };
+    if (!id) return handleError(res, { message: "Id not provided" } as Error);
+    try {
+        const deletedOrder = await deleteProduct(id);
+        res.json(deletedOrder);
+    } catch (err) {
+        return handleError(res, err as Error);
+    }
+}
+
+export const getProductHandler = async ({ params }: Request, res: Response) => {
+    const { id = "" } = { ...params };
+    if (!id) return handleError(res, { message: "Id not provided" } as Error);
+    try {
+        const order = await getProduct(id);
+        res.json(order);
+    } catch (err) {
+        return handleError(res, err as Error);
+    }
+}

@@ -31,15 +31,17 @@ model Sale {
   client   Client @relation(fields: [clientId], references: [id])
 }
 
-model SaleItem {
-
-}
+ // model SaleItem {
+ // 
+ //}
 
 model Product {
   id       String   @id @default(auto()) @map("_id") @db.ObjectId
   name     String
   price    Float
   category String
+  sellerId String 
+  date     DateTime
   images   String[] @default([])
 }
 
@@ -49,7 +51,16 @@ type OrderItem {
 }
 
 model Order {
-  id       String      @id @default(auto()) @map("_id") @db.ObjectId
-  userId   String
-  products OrderItem[]
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  clientId   String
+  date       DateTime
+  products   OrderItem[]
+}
+
+model Discount {
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  percent     Int
+  productIds  String[]    @default([])
+  startDate   DateTime
+  endDate     DateTime
 }
