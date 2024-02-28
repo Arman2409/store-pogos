@@ -9,11 +9,24 @@ import {
 } from "../db/order";
 import { getClient } from "../db/client";
 
-export const createOrderHandler = async ({ body }: Request, res: Response) => {
-    const { clientId, products }: Order = { ...body };
-    console.log(body);
+export const getOrderHandler = async ({ params }: Request, res: Response) => {
+    const { id = "" } = { ...params };
+    if (!id) return handleError(res, { message: "Id not provided" } as Error);
+    try {
+        const order = await getOrder(id);
+        res.json(order);
+    } catch (err) {
+        return handleError(res, err as Error);
+    }
+}
 
-    if (!clientId || !products) return handleError(res, { message: "UserId or products not provided" } as Error);
+export const createOrderHandler = async ({ body }: Request, res: Response) => {
+    const {
+        clientId,
+        sellerId,
+        products 
+    }: Order = { ...body };
+    if (!clientId || !sellerId || !products?.length) return handleError(res, { message: "ClientId, userId or products not provided" } as Error);
     try {
         const client = await getClient(clientId);
         if (!client) {
@@ -21,10 +34,23 @@ export const createOrderHandler = async ({ body }: Request, res: Response) => {
         }
         const order = await createOrder({
             clientId,
+            sellerId,
             date: new Date(),
             products
         })
-        res.json(order);
+        res.status(201).json(order);
+    } catch (err) {
+        return handleError(res, err as Error);
+    }
+}
+
+export const confirmOrderHandler = async ({ params }: Request, res: Response) => {
+    const { id = "" } = { ...params };
+    if (!id) return handleError(res, { message: "Id not provided" } as Error);
+    try {
+        const order = getOrder(id);
+        
+        res.status(204).send();
     } catch (err) {
         return handleError(res, err as Error);
     }
@@ -34,19 +60,8 @@ export const deleteOrderHandler = async ({ params }: Request, res: Response) => 
     const { id = "" } = { ...params };
     if (!id) return handleError(res, { message: "Id not provided" } as Error);
     try {
-        const deletedOrder = await deleteOrder(id);
-        res.json(deletedOrder);
-    } catch (err) {
-        return handleError(res, err as Error);
-    }
-}
-
-export const getOrderHandler = async ({ params }: Request, res: Response) => {
-    const { id = "" } = { ...params };
-    if (!id) return handleError(res, { message: "Id not provided" } as Error);
-    try {
-        const order = await getOrder(id);
-        res.json(order);
+        await deleteOrder(id);
+        res.status(204).send();
     } catch (err) {
         return handleError(res, err as Error);
     }

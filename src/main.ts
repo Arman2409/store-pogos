@@ -2,27 +2,34 @@ import express from "express";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 
-import clinetRoute from "./routes/client";
-import sellerRoute from "./routes/seller";
-import discountsRoute from "./routes/discount";
-import orderRoute from "./routes/order";
-import productRoute from "./routes/product";
 import logger from "./tools/logger";
+import { notFoundHandler } from "./handlers/notFound";
 
-const app = express();
+import clientRoute from "./routes/client";
+import sellerRoute from "./routes/seller";
+import productRoute from "./routes/product";
+import orderRoute from "./routes/order";
+import saleRoute from "./routes/sale";
+import searchRoute from "./routes/search";
+import discountsRoute from "./routes/discount";
+
 dotenv.config();
 
-const { PORT:port = 3000 } = {...process.env}
+const { PORT = 3000 } = {...process.env}
 
+const app = express();
 app.use(bodyParser.json());
 
 // Routes 
-app.use("/client", clinetRoute);
+app.use("/client", clientRoute);
 app.use("/seller", sellerRoute);
-app.use("/discount", discountsRoute);
+app.use("/product", productRoute);
 app.use("/order", orderRoute);
-app.use("/product", productRoute)
+app.use("/sale", saleRoute);
+app.use("/search", searchRoute);
+app.use("/discount", discountsRoute);
+app.use("*", notFoundHandler);
 
-app.listen(port, () => {
-  logger.info(`App listening on port ${port}`);
+app.listen(PORT, () => {
+  logger.info(`App listening on port ${PORT}`);
 });

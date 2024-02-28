@@ -9,7 +9,7 @@ export const getDiscount = async (id: string) => {
     },
   }).catch(({meta, message}) => {
     throw new Error(meta?.message || message)
-  });
+  }).finally(() => prisma.$disconnect());
 };
 
 export const deleteDiscount = async (id: string) => {
@@ -19,7 +19,7 @@ export const deleteDiscount = async (id: string) => {
     },
   }).catch(({meta, message}) => {
     throw new Error(meta?.message || message)
-  });
+  }).finally(() => prisma.$disconnect());
 };
 
 export const getDiscountsByProduct = async (id: string) => {
@@ -31,5 +31,5 @@ export const getDiscountsByProduct = async (id: string) => {
     },
   }).catch(({meta, message}) => {
     throw new Error(meta?.message || message)
-  });
+  }).finally(() => prisma.$disconnect());
 };

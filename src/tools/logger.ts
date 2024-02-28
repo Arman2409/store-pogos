@@ -1,11 +1,12 @@
 import { format, createLogger, transports } from 'winston';
+import sliceString from '../helpers/sliceString';
 
 // Define log format
 const logFormat = format.combine(
     format.timestamp(),
     format.simple(),
     format.colorize(),
-    format.printf(info => `[${info.timestamp}] ${info.level}: ${info.message}`)
+    format.printf(info => `[${sliceString(info.timestamp, 16, false)}] ${info.level}: ${info.message}`)
 );
 
 // Create a Winston logger instance

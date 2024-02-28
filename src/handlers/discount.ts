@@ -33,8 +33,8 @@ export const deleteDiscountHandler = async ({ params }: Request, res: Response) 
     const { id = "" } = { ...params }
     if (!id) return handleError(res, { message: "Id not provided" } as Error);
     try {
-        const client = await deleteDiscount(id);
-        res.json(client);
+       await deleteDiscount(id);
+        res.status(204).send();
     } catch (err) {
         return handleError(res, err as Error);
     }

@@ -11,7 +11,7 @@ export const createProduct = async (product: Product) => {
         },
     }).catch(({ meta, message }) => {
         throw new Error(meta?.message || message)
-    });
+    }).finally(() => prisma.$disconnect());
 };
 
 export const deleteProduct = async (id: string) => {
@@ -21,7 +21,7 @@ export const deleteProduct = async (id: string) => {
         },
     }).catch(({ meta, message }) => {
         throw new Error(meta?.message || message)
-    });
+    }).finally(() => prisma.$disconnect());
 };
 
 export const getProduct = async (id: string) => {
@@ -31,5 +31,5 @@ export const getProduct = async (id: string) => {
         },
     }).catch(({ meta, message }) => {
         throw new Error(meta?.message || message)
-    });
+    }).finally(() => prisma.$disconnect());
 };

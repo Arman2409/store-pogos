@@ -1,8 +1,11 @@
 export interface Order {
     clientId: string
     date: Date
+    sellerId: string
     products: {
          productId: string
-         quantity: number
+         weight: number
+         name: string
+         price: number
     }[]
 }

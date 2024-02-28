@@ -1,6 +1,7 @@
 import express from "express";
 
 import {
+  confirmOrderHandler,
   createOrderHandler,
   deleteOrderHandler,
   getOrderHandler
@@ -8,8 +9,9 @@ import {
 
 const orderRoute = express.Router();
 
+orderRoute.get("/:id", getOrderHandler)
+orderRoute.get("/confirm/:id", confirmOrderHandler)
 orderRoute.post("/", createOrderHandler)
 orderRoute.delete("/:id", deleteOrderHandler)
-orderRoute.get("/:id", getOrderHandler)
 
 export default orderRoute;

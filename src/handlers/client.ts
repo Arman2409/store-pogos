@@ -23,7 +23,7 @@ export const createClientHandler = async ({ body }: Request, res: Response) => {
     if (!name || !email) return handleError(res, { message: "Name or email not provided" } as Error);
     try {
         const client = await createClient(name, email);
-        res.json(client);
+        res.status(201).json(client);
     } catch (err) {
         return handleError(res, err as Error);
     }
@@ -33,8 +33,8 @@ export const deleteClientHandler = async ({ params }: Request, res: Response) =>
     const { id = "" } = { ...params }
     if (!id) return handleError(res, { message: "Id not provided" } as Error);
     try {
-        const client = await deleteClient(id);
-        res.json(client);
+        await deleteClient(id);
+        res.status(204).send();
     } catch (err) {
         return handleError(res, err as Error);
     }

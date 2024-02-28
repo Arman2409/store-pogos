@@ -24,16 +24,14 @@ model Seller {
 }
 
 model Sale {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
-  sellerId String
-  clientId String
-  seller   Seller @relation(fields: [sellerId], references: [id])
-  client   Client @relation(fields: [clientId], references: [id])
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  sellerId   String
+  clientId   String
+  totalPrice Int
+  date       DateTime
+  seller     Seller @relation(fields: [sellerId], references: [id])
+  client     Client @relation(fields: [clientId], references: [id])
 }
-
- // model SaleItem {
- // 
- //}
 
 model Product {
   id       String   @id @default(auto()) @map("_id") @db.ObjectId
@@ -47,12 +45,15 @@ model Product {
 
 type OrderItem {
   productId String
-  quantity  Int
+  name String
+  price Float
+  weight  Float
 }
 
 model Order {
   id         String      @id @default(auto()) @map("_id") @db.ObjectId
   clientId   String
+  sellerId   String
   date       DateTime
   products   OrderItem[]
 }

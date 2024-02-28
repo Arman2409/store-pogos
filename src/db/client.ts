@@ -9,7 +9,7 @@ export const getClient = async (id: string) => {
     },
   }).catch(({meta, message}) => {
     throw new Error(meta?.message || message)
-  });
+  }).finally(() => prisma.$disconnect());
 };
 
 export const createClient = async (name: string, email: string) => {
@@ -20,7 +20,7 @@ export const createClient = async (name: string, email: string) => {
     },
   }).catch(({meta, message}) => {
     throw new Error(meta?.message || message)
-  });
+  }).finally(() => prisma.$disconnect());
 };
 
 export const deleteClient = async (id:string) => {
@@ -30,6 +30,6 @@ export const deleteClient = async (id:string) => {
     },
   }).catch(({meta, message}) => {
     throw new Error(meta?.message || message)
-  });
+  }).finally(() => prisma.$disconnect());
 }
 
