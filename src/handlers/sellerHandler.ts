@@ -5,11 +5,8 @@ import { getInvetory } from "../db/sellerDb";
 
 export const getInvetoryHandler = async (_: Request, res: Response) => {
   try {
-    const products = await getInvetory();
-    res.json({
-      count: products.length,
-      products,
-    });
+    const invetory = await getInvetory();
+    res.json(invetory);
   } catch (err) {
     return handleErrorResponse(res, (err as Error)?.message);
   }

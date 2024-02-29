@@ -29,7 +29,7 @@ export const deleteProduct = async (id: string) => {
 
 export const getProduct = async (id: string) => {
   return await prisma.product
-    .findMany({
+    .findUnique({
       where: {
         id,
       },

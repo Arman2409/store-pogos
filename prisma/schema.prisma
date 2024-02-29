@@ -11,16 +11,15 @@ datasource db {
 }
 
 model Client {
-  id    String  @id @default(auto()) @map("_id") @db.ObjectId
-  email String  @unique
-  name  String?
+  id    String   @id @default(auto()) @map("_id") @db.ObjectId
+  email String   @unique
+  name  String? 
   sales Sale[]
 }
 
 model Seller {
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  id    String   @id @default(auto()) @map("_id") @db.ObjectId
   name  String
-  sales Sale[]
 }
 
 model Sale {
@@ -34,15 +33,15 @@ model Sale {
 }
 
 model Product {
-  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
   name     String
   price    Float
   category String
   date     DateTime?
   weight   Float?    @default(1)
-  images   String[] @default([])
-  Order    Order?   @relation(fields: [orderId], references: [id])
-  orderId  String?  @db.ObjectId
+  images   String[]  @default([])
+  Order    Order?    @relation(fields: [orderId], references: [id])
+  orderId  String?   @db.ObjectId
 }
 
 model Order {

@@ -1,36 +1,28 @@
 # Pogos LLC Software Engineering Exercise - Pipe17 project
 
-## Overview
-Let us imagine we operate a highly popular product stand at the local farmer’s market, offering a variety of products that customers love.
-However, managing inventory, sales, loyalty programs, and customer interactions has become a major challenge.
-To streamline operations and eliminate paper-based processes, we seek an application to simplify these tasks.
+## How to  run the application locally
 
-## Core Use Case
-- Customers select products
-- Products are weighed and priced
-- Customers make payments and receive the receipts and change
-- The same customers may return for additional purchases
-
-## Current Challenges
-- Managing high customer traffic and product browsing
-- Inefficient inventory tracking relying on paper records
-- Applying variable discounts to total order sales
-- Pricing products based on weight
-- Implementing daily discounts on specific products
-- Managing rewards for customers with frequent visits
-
-## What We're Looking For
-Design a data model and API for the order creation and sending paycheck to client.
-The technology stack should include Node.js and Prisma preferred for the database.
-
-## Possible Scenarios
-- Customer management
-- Employee tracking
-- Product inventory management
-- Inventory tracking
-- Variable pricing based on weight
-- Daily discounts on specific products
-- Loyalty program management
-- Customer, inventory, and sales reporting
-- Digital receipts
-- Returns processing
+1.  Make sure you have NodeJS installed on your machine ([NodeJS Installation](https://nodejs.org/en/))
+2. Open Terminal / Command Prompt and  navigate to the directory where you want to save this repository by using `cd` command.
+3. Clone  this repository: 
+```shell
+git clone https://github.com/Arman2409/store-pogos.git
+```
+4. Navigate into the cloned  directory: 
+```shell
+cd store-pogos
+```
+5. Install all dependencies by running 
+```javascript 
+npm install
+```
+6. Add .env file in the root of the project and add the following
+environment variables
+  DATABASE_URL - MongoDB database url
+  EMAIL_USERNAME - Email username for sending digital receipts
+  EMAIL_PASSWORD - Email password   
+  PORT - port address for running the project 
+7. run development server with command 
+```javascript
+ npm run dev
+ ```
