@@ -1,10 +1,10 @@
 import express from "express";
 
 import {
-    deleteDiscountHandler,
-    getDiscountHandler,
-    getDiscountsByProductHandler
-} from "../handlers/discount";
+  deleteDiscountHandler,
+  getDiscountHandler,
+  getDiscountsByProductHandler,
+} from "../handlers/discountHandler";
 
 const discountRoute = express.Router();
 

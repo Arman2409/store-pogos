@@ -24,13 +24,13 @@ model Seller {
 }
 
 model Sale {
-  id         String @id @default(auto()) @map("_id") @db.ObjectId
-  sellerId   String
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
   clientId   String
   totalPrice Int
   date       DateTime
-  seller     Seller @relation(fields: [sellerId], references: [id])
-  client     Client @relation(fields: [clientId], references: [id])
+  client     Client   @relation(fields: [clientId], references: [id])
+  Seller     Seller?  @relation(fields: [sellerId], references: [id])
+  sellerId   String?  @db.ObjectId
 }
 
 model Product {
@@ -38,30 +38,24 @@ model Product {
   name     String
   price    Float
   category String
-  sellerId String 
-  date     DateTime
+  date     DateTime?
+  weight   Float?    @default(1)
   images   String[] @default([])
-}
-
-type OrderItem {
-  productId String
-  name String
-  price Float
-  weight  Float
+  Order    Order?   @relation(fields: [orderId], references: [id])
+  orderId  String?  @db.ObjectId
 }
 
 model Order {
-  id         String      @id @default(auto()) @map("_id") @db.ObjectId
-  clientId   String
-  sellerId   String
-  date       DateTime
-  products   OrderItem[]
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  clientId String
+  date     DateTime
+  products Product[]
 }
 
 model Discount {
-  id          String      @id @default(auto()) @map("_id") @db.ObjectId
-  percent     Int
-  productIds  String[]    @default([])
-  startDate   DateTime
-  endDate     DateTime
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  percent    Int
+  productIds String[] @default([])
+  startDate  DateTime
+  endDate    DateTime
 }

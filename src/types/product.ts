@@ -1,8 +1,8 @@
 export interface Product {
-    name: string
-    sellerId: string
-    category: string
-    price: number
-    date: Date
-    images: string[]
+  name: string;
+  category: string;
+  price: number;
+  date: Date;
+  images: string[];
+  weight?: number;
 }

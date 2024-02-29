@@ -4,12 +4,14 @@ import {
   createClientHandler,
   deleteClientHandler,
   getClientHandler,
-} from "../handlers/client";
+  updateClientHandler,
+} from "../handlers/clientHandler";
 
 const clientRoute = express.Router();
 
 clientRoute.get("/:id", getClientHandler);
 clientRoute.post("/", createClientHandler);
-clientRoute.delete("/:id", deleteClientHandler)
+clientRoute.patch("/", updateClientHandler);
+clientRoute.delete("/:id", deleteClientHandler);
 
 export default clientRoute;
