@@ -1,4 +1,5 @@
 import { format, createLogger, transports } from "winston";
+
 import sliceString from "../helpers/sliceString";
 
 // Define log format

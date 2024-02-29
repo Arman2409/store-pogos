@@ -7,18 +7,17 @@ const prisma = new PrismaClient();
 
 export const getInvetory = async () => {
   try {
-    const products = await prisma.product.findMany()
-    const sales = await prisma.sale.findMany()
-    const orders = await prisma.order.findMany()
-    return ({
+    const products = await prisma.product.findMany();
+    const sales = await prisma.sale.findMany();
+    const orders = await prisma.order.findMany();
+    return {
       products: products || [],
       orders: orders || [],
-      sales: sales || []
-    })
+      sales: sales || [],
+    };
   } catch (err) {
-    handleDbError(err as PrismaError)
+    handleDbError(err as PrismaError);
+  } finally {
+    () => prisma.$disconnect();
   }
-  finally {
-    () => prisma.$disconnect()
-  };
 };

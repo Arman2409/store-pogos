@@ -45,8 +45,10 @@ export const markOrderAsSoldHandler = async (
   const { id = "" } = { ...params };
   if (!id) return handleErrorResponse(res, "Id not provided");
   try {
-    const order = getOrder(id) || {};
-    const { clientId, products }: Order = { ...(order as any) };
+    // Check if order exists
+    const order = getOrder(id);
+    if (!order) return handleErrorResponse(res, "Order doesn't exist");
+    const { clientId, products }: Order = { ...((order as any) || {}) };
     const sale = createSale({
       clientId,
       date: new Date(),

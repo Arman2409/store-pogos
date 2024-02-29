@@ -19,9 +19,12 @@ npm install
 6. Add .env file in the root of the project and add the following
 environment variables
   DATABASE_URL - MongoDB database url
+
   EMAIL_USERNAME - Email username for sending digital receipts
-  EMAIL_PASSWORD - Email password   
-  PORT - port address for running the project 
+
+  EMAIL_PASSWORD - Email password
+
+  PORT - port address for running the project
 7. run development server with command 
 ```javascript
  npm run dev

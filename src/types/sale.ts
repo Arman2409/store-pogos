@@ -14,6 +14,6 @@ export type CreateSaleBody = {
 };
 
 export type SendReceiptBody = {
-  email: string
-  saleId: string
-}
+  email: string;
+  saleId: string;
+};

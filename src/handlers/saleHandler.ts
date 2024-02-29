@@ -42,15 +42,16 @@ export const createSaleHandler = async ({ body }: Request, res: Response) => {
 };
 
 export const sendReceiptHandler = async ({ body }: Request, res: Response) => {
-  const { saleId = "", email = "" }:SendReceiptBody = { ...body };
+  const { saleId = "", email = "" }: SendReceiptBody = { ...body };
   if (!saleId || !email)
     return handleErrorResponse(res, "SaleId and email must be provided");
   try {
     const sale = getSale(saleId);
-    if (!sale) return handleErrorResponse(res, "Sale with given Id doesn't exist");
+    if (!sale)
+      return handleErrorResponse(res, "Sale with given Id doesn't exist");
     const { date = new Date(), totalPrice = 0, id = "" } = { ...sale };
     const template = generateDigitalReceipt(id, email, date, totalPrice);
-    // send the receipt to client's email
+    // Send the receipt to client's email
     sendDigitalReceipt(email, template);
     res.status(201).send(template);
   } catch (err) {
