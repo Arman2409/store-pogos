@@ -45,8 +45,8 @@ export const markOrderAsSoldHandler = async (
   const { id = "" } = { ...params };
   if (!id) return handleErrorResponse(res, "Id not provided");
   try {
-    // Check if order exists
-    const order = getOrder(id);
+    // Delete the order and get the details
+    const order = await deleteOrder(id);
     if (!order) return handleErrorResponse(res, "Order doesn't exist");
     const { clientId, products }: Order = { ...((order as any) || {}) };
     const sale = createSale({

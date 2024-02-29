@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 
 import handleDbError from "../helpers/handleDbError";
-import { PrismaError } from "../types/global";
+import type { PrismaError } from "../types/global";
 
 const prisma = new PrismaClient();
 

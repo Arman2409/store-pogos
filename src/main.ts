@@ -5,13 +5,13 @@ import dotenv from "dotenv";
 import logger from "./tools/logger";
 import { notFoundHandler } from "./handlers/notFoundHandler";
 
-import clientRoute from "./routes/clientRoutes";
-import sellerRoute from "./routes/sellerRoutes";
-import productRoute from "./routes/productRoutes";
-import orderRoute from "./routes/orderRoutes";
-import saleRoute from "./routes/saleRoutes";
-import searchRoute from "./routes/searchRoutes";
-import discountsRoute from "./routes/discountRoutes";
+import clientRoute from "./routes/clientRoute";
+import sellerRoute from "./routes/sellerRoute";
+import productRoute from "./routes/productRoute";
+import orderRoute from "./routes/orderRoute";
+import saleRoute from "./routes/saleRoute";
+import searchRoute from "./routes/searchRoute";
+import discountsRoute from "./routes/discountRoute";
 
 dotenv.config();
 
